@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>mypage</title>
+</head>
+<body>
+      <h2> My Page </h2>
+      Username: <input type="text" th:field="${member.username}" disabled /> <br/>
+      Password: <input type="text" th:field="${member.password}" disabled/> <br/>
+      Name: <input type="text" th:field="${member.name}" disabled/> <br/>
+      Email: <input type="text" th:field="${member.email}" disabled/> <br/>
+      RedDate: <input type="text" th:field="${member.regDate}" disabled/> <br/>
+      Enabled: <input type="text" th:field="${member.enabled}" disabled/> <br/>
+      Auth: <input th:each="au: ${member.authlist}" type="text" th:value="${au.auth}" disabled/> <br/>
+      <button type="button" th:onclick="|location.href='@{/members/modify/{username}(username=${member.username})}'|"> 정보 수정 </button>
+      <form th:action="@{/members/delete/{username}(username=${member.username})}" method="post">
+            <button type="submit"> 회원 삭제 </button>
+      </form>
+      <button type="button" th:onclick="|location.href='@{/}'|"> 홈으로 </button>
+
+      <h2> Thymeleaf + Security</h2>
+      <p> principal: <span sec:authentication="principal"></span></p>
+      <p> Username: <span sec:authentication="principal.username"></span></p>
+      <p> Password: <span sec:authentication="principal.password"></span></p>
+      <p> Auth: <span sec:authentication="principal.authorities"></span></p>
+
+      <p> MemberDTO: <span sec:authentication="principal.member"></span></p>
+      <p> Name: <span sec:authentication="principal.member.name"></span></p>
+      <p> Email: <span sec:authentication="principal.member.email"></span></p>
+
+</body>
+</html>

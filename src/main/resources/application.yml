@@ -1,0 +1,29 @@
+## 이전 설정
+#  spring.datasource.url=jdbc:mysql://localhost:3306/scott?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+#  spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+#  spring.datasource.userName=root
+#  spring.datasource.password=8064
+
+# 설정 파일 yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/scott?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+
+mybatis:
+  type-aliases-package: com.example.memberSec.dto
+
+# DB logging
+logging:
+  level:
+    # DB JDBC 로그 설정
+    org.springframework.jdbc: debug
+    # HTTP 요청 메시지 로그 설정
+    #    org.apache.coyote.http11: trace
+    # SQL 로그 설정 (SQL이 어떻게 작동했는지 표시)
+    # com.tje.boardEx.persistence: trace
+
+
+

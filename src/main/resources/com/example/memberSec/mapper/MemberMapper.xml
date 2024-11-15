@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.memberSec.mapper.MemberMapper">
+    <insert id="insertMember">
+        insert into memberSec(username, password, name, email)
+        values(#{username}, #{password}, #{name}, #{email})
+    </insert>
+    <insert id="insertAuth">
+        insert into auth values(#{username}, #{auth})
+    </insert>
+
+    <!-- Join 하고자 할 때, MemberDTO의 List<AuthDTO> 때문에, resultMap 정의 필요
+        property: type으로 지정한 클래스의 변수명,
+        column: 조회하는 테이블의 컬럼명
+        -->
+    <resultMap id="memberMap" type="MemberDTO">
+        <id property="username" column="username" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="regDate" column="regDate" />
+        <result property="enabled" column="enabled" />
+        <collection property="authlist" resultMap="authMap"></collection>
+    </resultMap>
+    <resultMap id="authMap" type="AuthDTO">
+        <result property="username" column="username" />
+        <result property="auth" column="auth" />
+    </resultMap>
+
+    <select id="selectMemberByUsername" resultMap="memberMap">
+        select m.username, m.password, m.name, m.email, m.regDate, m.enabled, a.auth
+        from memberSec m left outer join auth a
+        on m.username = a.username
+        where m.username = #{username}
+    </select>
+
+
+    <update id="updateMember">
+        update memberSec set name=#{name}, email=#{email}
+        where username=#{username}
+    </update>
+
+    <select id="selectAllMembers" resultMap="memberMap">
+        select m.username, m.password, m.name, m.email, m.regDate, m.enabled, a.auth
+        from memberSec m left outer join auth a
+        on m.username = a.username
+    </select>
+
+    <delete id="deleteAuth">
+        delete from auth where username=#{username}
+    </delete>
+
+    <delete id="deleteMember">
+        delete from memberSec where username=#{username}
+    </delete>
+
+</mapper>

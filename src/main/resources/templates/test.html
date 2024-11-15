@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1> thymeleaf + security </h1>
+  <ul>
+    <li sec:authorize="isAuthenticated()"> 로그인 함 </li> <!-- 로그인 해야 나타남 -->
+    <li sec:authorize="isAnonymous()">로그인 안함</li> <!-- 로그인 안해야 나타남  -->
+    <li sec:authorize="hasRole('ROLE_MEMBER')"> Member 권한 있음</li> <!-- MEMBER 권한 있어야 나타남 -->
+    <li sec:authorize="hasRole('ROLE_ADMIN')"> ADMIN 권한 있음</li> <!-- ADMIN 권한도 있어야 나타남 -->
+    <li sec:authorize="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"> Member 또는 ADMIN 권한 있음 </li> <!-- 권한 있기만 하면 나타남 -->
+  </ul>
+</body>
+</html>

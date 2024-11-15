@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> member list </title>
+</head>
+<body>
+  <h2> 회원 목록 </h2>
+  <table border="1">
+    <tr>
+      <td> Username </td>
+      <td> Name </td>
+      <td> Email </td>
+      <td> RegDate </td>
+      <td> Enabled </td>
+      <td> Auth </td>
+    </tr>
+    <tr th:each="member: ${members}">
+      <td th:text="${member.username}"> Username </td>
+      <td th:text="${member.name}"> Name </td>
+      <td th:text="${member.email}"> Email </td>
+      <td th:text="${member.regDate}"> RegDate </td>
+      <td th:text="${member.enabled}"> Enabled </td>
+      <td>
+        <span th:each="au : ${member.authlist}" th:text="${au.auth}"></span>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
